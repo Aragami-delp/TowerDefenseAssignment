@@ -8,7 +8,7 @@ public class TDGridXZ<T>
     private int m_height;
     private float m_cellSize;
     private Vector3 m_originPos;
-    private TDGridObject[,] m_gridArray;
+    private TDGridObject<T>[,] m_gridArray;
 
     private bool m_drawDebugGrid = false;
 
@@ -21,14 +21,14 @@ public class TDGridXZ<T>
 
         m_drawDebugGrid = _drawDebugGrid;
 
-        m_gridArray = new TDGridObject[_width, _height];
+        m_gridArray = new TDGridObject<T>[_width, _height];
 
         for (int x = 0; x < m_gridArray.GetLength(0); x++)
         {
             for (int z = 0; z < m_gridArray.GetLength(1); z++)
             {
                 if (m_drawDebugGrid && _debugPlaceholder != null)
-                    GameObject.Instantiate(_debugPlaceholder, GetWorldCenterPosition(x, z), Quaternion.identity);
+                    GameObject.Instantiate(_debugPlaceholder, GetWorldPosition(x, z), Quaternion.identity);
                 if (m_drawDebugGrid)
                 {
                     Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
@@ -44,7 +44,7 @@ public class TDGridXZ<T>
         }
     }
 
-    private Vector3 GetWorldPosition(int _gridX, int _gridZ)
+    public Vector3 GetWorldPosition(int _gridX, int _gridZ)
     {
         return new Vector3(_gridX, 0, _gridZ) * m_cellSize + m_originPos;
     }
@@ -60,24 +60,24 @@ public class TDGridXZ<T>
         _z = Mathf.FloorToInt((_worldPos - m_originPos).z / m_cellSize);
     }
 
-    public TDGridObject GetGridObject(int _gridX, int _gridZ)
+    public TDGridObject<T> GetGridObject(int _gridX, int _gridZ)
     {
         if (_gridX >= 0 && _gridZ >= 0 && _gridX < m_width && _gridZ < m_height)
         {
             return m_gridArray[_gridX, _gridZ];
         }
         Debug.LogError("Out of grid range: GetValue(" + _gridX + ", " + _gridZ + ")");
-        return default(TDGridObject);
+        return default(TDGridObject<T>);
     }
 
-    public TDGridObject GetGridObject(Vector3 _worldPos)
+    public TDGridObject<T> GetGridObject(Vector3 _worldPos)
     {
         int gridX, gridZ;
         GetXY(_worldPos, out gridX, out gridZ);
         return GetGridObject(gridX, gridZ);
     }
 
-    public void SetGridObject(int _gridX, int _gridZ, TDGridObject _value)
+    public void SetGridObject(int _gridX, int _gridZ, TDGridObject<T> _value)
     {
         if (_gridX >= 0 && _gridZ >= 0 && _gridX < m_width && _gridZ < m_height)
         {
@@ -86,7 +86,7 @@ public class TDGridXZ<T>
         Debug.LogError("Out of grid range: SetValue(" + _gridX + ", " + _gridZ + ", " + _value + ")");
     }
 
-    public void SetGridObject(Vector3 _worldPos, TDGridObject value)
+    public void SetGridObject(Vector3 _worldPos, TDGridObject<T> value)
     {
         int gridX, gridZ;
         GetXY(_worldPos, out gridX, out gridZ);

@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TDGridObject
+public class TDGridObject<T>
 {
-    private bool m_forbidden = false;
-    private IGridBuilding m_gridBuilding;
+    private T m_gridContent;
 
-    public bool Buildable => m_gridBuilding != null;
+    public bool HasContent => m_gridContent != null;
 }
