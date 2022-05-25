@@ -157,6 +157,7 @@ MonoBehaviour:
   m_wayTile: {fileID: 4359245985357131444, guid: 4e6257e9db4bcd749b9d89b8a2c73979, type: 3}
   m_startWayTile: {fileID: 5514651797990495884, guid: ae7537b20d52c4947bf2763c287df467, type: 3}
   m_endWayTile: {fileID: 3728059595614002301, guid: 3dcdaa06153ab26438895253ca9b70d1, type: 3}
+  m_wayShift: -0.1
   m_tileIs: 48
   m_wayIs: 49
   m_startIs: 50

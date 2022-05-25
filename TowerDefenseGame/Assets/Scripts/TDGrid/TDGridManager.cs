@@ -13,6 +13,7 @@ public class TDGridManager : MonoBehaviour
     [SerializeField] private Transform m_wayTile;
     [SerializeField] private Transform m_startWayTile;
     [SerializeField] private Transform m_endWayTile;
+    [SerializeField] private float m_wayShift;
     [SerializeField, ReadOnly] private char m_tileIs = '0';
     [SerializeField, ReadOnly] private char m_wayIs = '1';
     [SerializeField, ReadOnly] private char m_startIs = '2';
@@ -53,13 +54,13 @@ public class TDGridManager : MonoBehaviour
                         Instantiate(m_floorTile, _grid.GetWorldPosition(x, y), Quaternion.identity, m_mapParent);
                         break;
                     case '1':
-                        Instantiate(m_wayTile, _grid.GetWorldPosition(x, y), Quaternion.identity, m_mapParent);
+                        Instantiate(m_wayTile, _grid.GetWorldPosition(x, y) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent);
                         break;
                     case '2':
-                        Instantiate(m_startWayTile, _grid.GetWorldPosition(x, y), Quaternion.identity, m_mapParent);
+                        Instantiate(m_startWayTile, _grid.GetWorldPosition(x, y) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent);
                         break;
                     case '3':
-                        Instantiate(m_endWayTile, _grid.GetWorldPosition(x, y), Quaternion.identity, m_mapParent);
+                        Instantiate(m_endWayTile, _grid.GetWorldPosition(x, y) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent);
                         break;
                     default:
                         break;
