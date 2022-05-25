@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282ed2db35d99a24c860171ffd577c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_mapParent: {fileID: 0}
+  m_mapParent: {fileID: 1207918484}
   m_floorTile: {fileID: 4969095810050088, guid: 97a4c0aac51126c43b48361675b1f1e2, type: 3}
   m_wayTile: {fileID: 4359245985357131444, guid: 4e6257e9db4bcd749b9d89b8a2c73979, type: 3}
   m_startWayTile: {fileID: 5514651797990495884, guid: ae7537b20d52c4947bf2763c287df467, type: 3}
@@ -162,45 +162,47 @@ MonoBehaviour:
   m_wayIs: 49
   m_startIs: 50
   m_endIs: 51
-  m_way: '0030000000
+  m_way: '00030000000000000000
 
-    0010000000
+    00010000111110000000
 
-    0011111000
+    00010011100011100000
 
-    0000001000
+    00011010000000100000
 
-    0000111000
+    00001110111110100000
 
-    0000100000
+    00000000100011100000
 
-    0000100000
+    00111111100000000000
 
-    0111100000
+    00100000000000000000
 
-    0100000000
+    00100000001111100000
 
-    0111111100
+    00100011111000111100
 
-    0000000100
+    00100010000000000100
 
-    0000000100
+    00100010000000111100
 
-    0000011100
+    00100010111110100000
 
-    0000010000
+    00100010100010100000
 
-    0001110000
+    00111110100011100000
 
-    0001000000
+    00000000100000000000
 
-    0001000000
+    00001111100000011100
 
-    0001111100
+    00001000001111110100
 
-    0000000100
+    00001000111000000100
 
-    0000000200'
+    00001111100000111100
+
+    00000000000000200000'
 --- !u!4 &194871129
 Transform:
   m_ObjectHideFlags: 0
@@ -345,8 +347,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.7264151, g: 0.24328054, b: 0.24328054, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -393,6 +395,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1207918483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1207918484}
+  m_Layer: 0
+  m_Name: MapParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1207918484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207918483}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375244583
 GameObject:
