@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using Helper;
+using Cinemachine;
 
 public class TDGridManager : MonoBehaviour
 {
@@ -20,10 +21,16 @@ public class TDGridManager : MonoBehaviour
     [SerializeField, ReadOnly] private char m_endIs = '3';
     [SerializeField, TextArea(5, 50)] private string m_way;
 
+    private int mapX;
+    private int mapZ;
+    private const float TILE_SCALE = 2f;
+
     private void Start()
     {
         char[,] mapDetails = GetMapDetails(m_way);
-        m_grid = new TDGridXZ<IGridBuilding>(mapDetails.GetLength(0), mapDetails.GetLength(1), 2f, Vector3.zero);
+        mapX = mapDetails.GetLength(0);
+        mapZ = mapDetails.GetLength(1);
+        m_grid = new TDGridXZ<IGridBuilding>(mapX, mapZ, TILE_SCALE, Vector3.zero);
         PopulateMap(m_grid, mapDetails);
     }
 
@@ -44,9 +51,9 @@ public class TDGridManager : MonoBehaviour
 
     private void PopulateMap(TDGridXZ<IGridBuilding> _grid, char[,] _mapDetails)
     {
-        for (int x = 0; x < _mapDetails.GetLength(0); x++)
+        for (int x = 0; x < mapX; x++)
         {
-            for (int y = 0; y < _mapDetails.GetLength(1); y++)
+            for (int y = 0; y < mapZ; y++)
             {
                 switch (_mapDetails[x,y])
                 {
