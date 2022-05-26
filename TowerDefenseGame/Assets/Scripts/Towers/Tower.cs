@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour, IGridBuilding
+public class Tower : MonoBehaviour
 {
     private SOTower m_towerData;
 
