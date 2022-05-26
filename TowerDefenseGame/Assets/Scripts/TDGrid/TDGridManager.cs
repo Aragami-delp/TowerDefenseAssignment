@@ -21,7 +21,7 @@ public class TDGridManager : MonoBehaviour
     [SerializeField, ReadOnly] private char m_endIs = '3';
     [SerializeField, TextArea(5, 50)] private string m_way;
 
-    [SerializeField, Header("Build:")] private Tower m_towerPrefab;
+    [SerializeField, Header("Build:")] private SOTower m_soTower;
     [SerializeField] private LayerMask m_buildableLayers;
 
     private int mapX;
@@ -81,19 +81,57 @@ public class TDGridManager : MonoBehaviour
 
     private void Update()
     {
-        BuildTower(m_towerPrefab);
-    }
-
-    private void BuildTower(Tower _towerPrefab)
-    {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 buildPos = InputHelper.GetMouseWorldPosition3D(m_buildableLayers);
-            TDGridObject buildGround = m_grid.GetGridObject(buildPos);
+            BuildTower(m_soTower);
+        }
+    }
+
+    private void BuildTower(SOTower _soTower)
+    {
+        Vector3? buildPos = InputHelper.GetMouseWorldPosition3D(m_buildableLayers);
+        if (buildPos.HasValue)
+        {
+            TDGridObject buildGround = m_grid.GetGridObject(buildPos.Value);
+            bool allowed = true;
             if (typeof(TDGridObjectEmpty) == buildGround.GetType())
             {
                 TDGridObjectEmpty placeableGround = buildGround as TDGridObjectEmpty;
-                placeableGround.PlaceTower(Instantiate(_towerPrefab, m_grid.GetWorldPosition(placeableGround.X, placeableGround.Z), Quaternion.identity));
+                if (placeableGround.X + _soTower.Footprint.x <= mapX && placeableGround.Z + _soTower.Footprint.y <= mapZ)
+                {
+                    // Check all tiles if placeable
+                    for (int x = placeableGround.X; x <= placeableGround.X + _soTower.Footprint.x - 1; x++)
+                    // Footprint x = 1 | 0 + 1 - 1 = 0 -> Valid   Footprint x = 2 | 0 + 1 - 2 = -1 -> Invalid
+                    // Footprint x = 1 | 20 + 1 - 1 = 20 -> Valid   Footprint x = 2 | 20 + 1 - 2 = 19 -> Valid
+                    {
+                        for (int z = placeableGround.Z; z <= placeableGround.Z + _soTower.Footprint.y - 1; z++)
+                        {
+                            TDGridObject otherObject = m_grid.GetGridObject(x, z);
+                            if (typeof(TDGridObjectEmpty) != otherObject.GetType() || ((TDGridObjectEmpty)otherObject).Occupied)
+                            {
+                                allowed = false;
+                            }
+                        }
+                    }
+                    if (allowed)
+                    {
+                        Tower newTower = Instantiate(_soTower.TowerPrefab, m_grid.GetWorldPosition(placeableGround.X, placeableGround.Z), Quaternion.identity);
+                        //placeableGround.SetTower(newTower); // Already done by for loop
+                        for (int x = placeableGround.X; x <= placeableGround.X + _soTower.Footprint.x - 1; x++)
+                        // Footprint x = 1 | 0 + 1 - 1 = 0 -> Valid   Footprint x = 2 | 0 + 1 - 2 = -1 -> Invalid
+                        // Footprint x = 1 | 20 + 1 - 1 = 20 -> Valid   Footprint x = 2 | 20 + 1 - 2 = 19 -> Valid
+                        {
+                            for (int z = placeableGround.Z; z <= placeableGround.Z + _soTower.Footprint.y - 1; z++)
+                            {
+                                TDGridObject otherObject = m_grid.GetGridObject(x, z);
+                                if (typeof(TDGridObjectEmpty) == otherObject.GetType())
+                                {
+                                    ((TDGridObjectEmpty)otherObject).SetTower(newTower);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

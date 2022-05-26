@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37a20b0bbdb40cd4d8cb3ea7d2f94912, type: 3}
-  m_Name: BasicTower
+  m_Name: LargeTower
   m_EditorClassIdentifier: 
   Name: Attack Tower
   FireRate: 1
   Damage: 1
   Range: 1
   Cost: 10
-  Footprint: {x: 1, y: 1}
-  TowerPrefab: {fileID: 6143367633101649683, guid: 0efadd97286b90a40b48dc42fce4b24a, type: 3}
+  Footprint: {x: 2, y: 2}
+  TowerPrefab: {fileID: 6143367633101649683, guid: 442e8ef6c7c0e7744a3b3e3ddd18f46c, type: 3}

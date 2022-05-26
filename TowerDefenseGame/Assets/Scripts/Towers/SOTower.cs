@@ -11,4 +11,5 @@ public class SOTower : ScriptableObject
     public float Range = 1f;
     public int Cost = 10;
     public Vector2 Footprint = Vector2.one; // in grid size
+    public Tower TowerPrefab;
 }

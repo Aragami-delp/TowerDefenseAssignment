@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 64319738291439262}
   - component: {fileID: 5356876066468318746}
   m_Layer: 10
-  m_Name: SM_Buildings_Floor_2x2_01P_DefaultTile
+  m_Name: Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

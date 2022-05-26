@@ -11,7 +11,7 @@ public class TDGridObjectEmpty : TDGridObject
     {
     }
 
-    public void PlaceTower(Tower _tower)
+    public void SetTower(Tower _tower)
     {
         m_tower = _tower;
     }

@@ -201,7 +201,7 @@ MonoBehaviour:
     00001111111000000100
 
     00000000000000000200'
-  m_towerPrefab: {fileID: 6143367633101649683, guid: 0efadd97286b90a40b48dc42fce4b24a, type: 3}
+  m_soTower: {fileID: 11400000, guid: 4fd3e7987d302b64b99a411c4319cfa6, type: 2}
   m_buildableLayers:
     serializedVersion: 2
     m_Bits: 1024
