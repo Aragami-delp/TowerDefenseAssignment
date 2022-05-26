@@ -8,7 +8,7 @@ using Cinemachine;
 
 public class TDGridManager : MonoBehaviour
 {
-    private TDGridXZ<IGridBuilding> m_grid;
+    private TDGridXZ m_grid;
     [SerializeField] private Transform m_mapParent;
     [SerializeField] private Transform m_floorTile;
     [SerializeField] private Transform m_wayTile;
@@ -30,7 +30,7 @@ public class TDGridManager : MonoBehaviour
         char[,] mapDetails = GetMapDetails(m_way);
         mapX = mapDetails.GetLength(0);
         mapZ = mapDetails.GetLength(1);
-        m_grid = new TDGridXZ<IGridBuilding>(mapX, mapZ, TILE_SCALE, Vector3.zero);
+        m_grid = new TDGridXZ(mapX, mapZ, TILE_SCALE, Vector3.zero);
         PopulateMap(m_grid, mapDetails);
     }
 
@@ -49,7 +49,7 @@ public class TDGridManager : MonoBehaviour
         return mapDetails;
     }
 
-    private void PopulateMap(TDGridXZ<IGridBuilding> _grid, char[,] _mapDetails)
+    private void PopulateMap(TDGridXZ _grid, char[,] _mapDetails)
     {
         for (int x = 0; x < mapX; x++)
         {
