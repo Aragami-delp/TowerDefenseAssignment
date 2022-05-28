@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a20b0bbdb40cd4d8cb3ea7d2f94912, type: 3}
   m_Name: LargeTower
   m_EditorClassIdentifier: 
-  Name: Attack Tower
+  Name: Large Tower
   FireRate: 1
   Damage: 1
   Range: 1
