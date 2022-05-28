@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Arc Tower
   FireRate: 0.2
   Damage: 1
-  Range: 4
+  Range: 3
   Cost: 20
   Footprint: {x: 1, y: 1}
   TowerPrefab: {fileID: 5856743160973892437, guid: 0efadd97286b90a40b48dc42fce4b24a, type: 3}

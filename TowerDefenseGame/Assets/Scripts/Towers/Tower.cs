@@ -17,8 +17,7 @@ public abstract class Tower : MonoBehaviour
     public virtual Tower Init(SOTower _ownTower)
     {
         m_towerData = _ownTower;
-        float range = m_towerData.Range / ((m_towerData.Footprint.x + m_towerData.Footprint.y) / 2); // Account for local/world scale
-        m_towerRangeSphere.transform.localScale = new Vector3(range, range, range);
+        SetGlobalScale(m_towerRangeSphere.transform, new Vector3(m_towerData.Range, m_towerData.Range, m_towerData.Range) * TDGridManager.TILE_SCALE * 2); // radius*2
         ShowRange(true);
         return this;
     }
@@ -29,4 +28,10 @@ public abstract class Tower : MonoBehaviour
     }
 
     public abstract void Shoot(Transform _target);
+
+    public static void SetGlobalScale(Transform transform, Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(globalScale.x/transform.lossyScale.x, globalScale.y/transform.lossyScale.y, globalScale.z/transform.lossyScale.z);
+    }
 }

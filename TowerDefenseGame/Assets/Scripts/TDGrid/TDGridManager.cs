@@ -45,7 +45,7 @@ public class TDGridManager : MonoBehaviour
     /// <summary>
     /// Distance between each tile center
     /// </summary>
-    private const float TILE_SCALE = 2f;
+    public const float TILE_SCALE = 2f;
 
     /// <summary>
     /// Currently in placing towers mode

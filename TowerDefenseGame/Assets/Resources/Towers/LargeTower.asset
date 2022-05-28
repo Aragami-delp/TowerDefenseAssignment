@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Fire Tower
   FireRate: 2
   Damage: 20
-  Range: 7
+  Range: 5
   Cost: 30
   Footprint: {x: 2, y: 2}
   TowerPrefab: {fileID: 2782024393148318016, guid: 442e8ef6c7c0e7744a3b3e3ddd18f46c, type: 3}
