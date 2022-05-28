@@ -26,7 +26,7 @@ public class TDGridManager : MonoBehaviour
 #pragma warning restore CS0414
     [SerializeField, TextArea(5, 50)] private string m_way;
 
-    [SerializeField, Header("Build:"), Tooltip("Layers that may be used to determine grid tiles")] private LayerMask m_buildableLayers;
+    [SerializeField, Header("Build:"), Tooltip("Layers that may be used to determine grid tiles on mouse click")] private LayerMask m_buildableLayers;
     #endregion
 
     #region Private Vars
