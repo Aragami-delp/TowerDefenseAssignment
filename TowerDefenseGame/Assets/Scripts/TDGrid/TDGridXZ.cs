@@ -110,7 +110,8 @@ public class TDGridXZ
     /// <param name="_gridX">Grid position X</param>
     /// <param name="_gridZ">Grid position Z</param>
     /// <param name="_value">GridObject to assign to</param>
-    public void SetGridObject(int _gridX, int _gridZ, TDGridObject _value)
+    /// <returns>Assigned GridObject</returns>
+    public TDGridObject SetGridObject(int _gridX, int _gridZ, TDGridObject _value)
     {
         if (_gridX >= 0 && _gridZ >= 0 && _gridX < m_width && _gridZ < m_height)
         {
@@ -118,6 +119,7 @@ public class TDGridXZ
         }
         else
             Debug.LogError("Out of grid range: SetValue(" + _gridX + ", " + _gridZ + ", " + _value + ")");
+        return _value;
     }
 
     /// <summary>
@@ -125,10 +127,57 @@ public class TDGridXZ
     /// </summary>
     /// <param name="_worldPos">Grid position in world space</param>
     /// <param name="_value">GridObject to assign to</param>
-    public void SetGridObject(Vector3 _worldPos, TDGridObject value)
+    /// <returns>Assigned GridObject</returns>
+    public TDGridObject SetGridObject(Vector3 _worldPos, TDGridObject _value)
     {
         int gridX, gridZ;
         GetXZ(_worldPos, out gridX, out gridZ);
-        SetGridObject(gridX, gridZ, value);
+        SetGridObject(gridX, gridZ, _value);
+        return _value;
+    }
+
+    /// <summary>
+    /// Returns all 4 directly adjacent tile if they exist and are the same type
+    /// </summary>
+    /// <typeparam name="T">Wanted TDGridObject type</typeparam>
+    /// <param name="_ownX">X position of tile in the middle</param>
+    /// <param name="_ownZ">Z position of tile in the middle</param>
+    /// <returns>0-4 length array of adjacent tiles</returns>
+    public T[] GetAdjacentTiles<T>(int _ownX, int _ownZ) where T : TDGridObject
+    {
+        List<T> retVal = new List<T>(1); // Min 1 adjacent most likely
+        if (_ownX > 0) // Not out of map
+        {
+            TDGridObject current = m_gridArray[_ownX - 1, _ownZ];
+            if (typeof(T) == current.GetType()) // Same type as needed
+            {
+                retVal.Add(current as T);
+            }
+        }
+        if (_ownZ > 0)
+        {
+            TDGridObject current = m_gridArray[_ownX, _ownZ - 1];
+            if (typeof(T) == current.GetType())
+            {
+                retVal.Add(current as T);
+            }
+        }
+        if (_ownX < m_width - 1)
+        {
+            TDGridObject current = m_gridArray[_ownX + 1, _ownZ];
+            if (typeof(T) == current.GetType())
+            {
+                retVal.Add(current as T);
+            }
+        }
+        if (_ownZ < m_height - 1)
+        {
+            TDGridObject current = m_gridArray[_ownX, _ownZ + 1];
+            if (typeof(T) == current.GetType())
+            {
+                retVal.Add(current as T);
+            }
+        }
+        return retVal.ToArray();
     }
 }

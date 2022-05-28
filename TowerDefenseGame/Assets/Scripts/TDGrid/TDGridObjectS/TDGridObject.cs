@@ -44,4 +44,9 @@ public abstract class TDGridObject : MonoBehaviour
         Z = _z;
         return this;
     }
+
+    public override string ToString()
+    {
+        return "X: " + X + ", Z: " + Z + ", " + base.ToString();
+    }
 }

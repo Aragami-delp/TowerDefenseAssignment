@@ -61,6 +61,19 @@ public class TDGridManager : MonoBehaviour
     /// Saves last position to avoid validating the same coordinates multiple times
     /// </summary>
     private Vector2? m_lastBuildPos;
+
+    /// <summary>
+    /// All tiles the enemies can use including start and finish
+    /// </summary>
+    private List<TDGridObjectWay> m_enemyWalkPathTiles = new List<TDGridObjectWay>();
+    /// <summary>
+    /// Enemies spawn here
+    /// </summary>
+    private TDGridObjectStart m_enemyStart;
+    /// <summary>
+    /// Enemies go here
+    /// </summary>
+    private TDGridObjectFinish m_enemyFinish;
     #endregion
 
     #region Singleton
@@ -88,6 +101,7 @@ public class TDGridManager : MonoBehaviour
         m_grid = new TDGridXZ(mapX, mapZ, TILE_SCALE, Vector3.zero);
 #endif
         PopulateMap(m_grid, mapDetails);
+        DetermineEnemyPath();
     }
 
     private void Update()
@@ -140,16 +154,46 @@ public class TDGridManager : MonoBehaviour
                         _grid.SetGridObject(x, z, Instantiate(m_wayTile, _grid.GetWorldPosition(x, z) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent).Init(_grid, x, z));
                         break;
                     case '2':
-                        _grid.SetGridObject(x, z, Instantiate(m_startWayTile, _grid.GetWorldPosition(x, z) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent).Init(_grid, x, z));
+                        if (m_enemyStart == null)
+                            m_enemyStart = (TDGridObjectStart)_grid.SetGridObject(x, z, Instantiate(m_startWayTile, _grid.GetWorldPosition(x, z) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent).Init(_grid, x, z));
+                        else
+                            Debug.LogWarning("Start tile already exists. Skipping");
                         break;
                     case '3':
-                        _grid.SetGridObject(x, z, Instantiate(m_endWayTile, _grid.GetWorldPosition(x, z) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent).Init(_grid, x, z));
+                        if (m_enemyFinish == null)
+                            m_enemyFinish = (TDGridObjectFinish)_grid.SetGridObject(x, z, Instantiate(m_endWayTile, _grid.GetWorldPosition(x, z) + new Vector3(0, m_wayShift, 0), Quaternion.identity, m_mapParent).Init(_grid, x, z));
+                        else
+                            Debug.LogWarning("Finish tile already exists. Skipping");
                         break;
                     default:
                         break;
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Creates a list with the order of the enemy path
+    /// </summary>
+    private void DetermineEnemyPath()
+    {
+        TDGridObjectWay currentTile = m_enemyStart;
+        m_enemyWalkPathTiles.Add(currentTile);
+        while (currentTile != null)
+        {
+            TDGridObjectWay[] nextTiles = m_grid.GetAdjacentTiles<TDGridObjectWay>(currentTile.X, currentTile.Z);
+            currentTile = null;
+            foreach (TDGridObjectWay nextWay in nextTiles)
+            {
+                if (!m_enemyWalkPathTiles.Contains(nextWay))
+                {
+                    m_enemyWalkPathTiles.Add(nextWay);
+                    currentTile = nextWay;
+                    break;
+                }
+            }
+        }
+        m_enemyWalkPathTiles.Add(m_enemyFinish);
     }
     #endregion
 
