@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance = null;
 
     [SerializeField] private VerticalLayoutGroup m_towerButtonParent;
-    [SerializeField] private List<SOTower> m_soTowers = new List<SOTower>();
     [SerializeField] private TowerButton m_towerButtonPrefab;
     [SerializeField] private Button m_cancelBuildButton;
 
@@ -22,7 +22,8 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
 
-        foreach (SOTower soTower in m_soTowers)
+        SOTower[] loadedSOTowersObject = Resources.LoadAll("Towers", typeof(SOTower)).Cast<SOTower>().ToArray();
+        foreach (SOTower soTower in loadedSOTowersObject)
         {
             Instantiate(m_towerButtonPrefab, m_towerButtonParent.transform).Init(soTower);
         }
