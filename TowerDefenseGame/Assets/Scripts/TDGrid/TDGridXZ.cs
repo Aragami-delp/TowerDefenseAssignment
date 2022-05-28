@@ -10,20 +10,22 @@ public class TDGridXZ
     private Vector3 m_originPos;
     private TDGridObject[,] m_gridArray;
 
-    private bool m_drawDebugGrid = false;
-
+#if UNITY_EDITOR
     public TDGridXZ(int _width, int _height, float _cellSize, Vector3 _originPosition, bool _drawDebugGrid = false)
+#else
+    public TDGridXZ(int _width, int _height, float _cellSize, Vector3 _originPosition)
+#endif
     {
         m_width = _width;
         m_height = _height;
         m_cellSize = _cellSize;
         m_originPos = _originPosition;
 
-        m_drawDebugGrid = _drawDebugGrid;
-
         m_gridArray = new TDGridObject[_width, _height];
 
-        if (m_drawDebugGrid)
+        #region Debug
+#if UNITY_EDITOR
+        if (_drawDebugGrid)
         {
             for (int x = 0; x < m_gridArray.GetLength(0); x++)
             {
@@ -36,24 +38,50 @@ public class TDGridXZ
             Debug.DrawLine(GetWorldPosition(0, _height), GetWorldPosition(_width, _height), Color.white, 100f);
             Debug.DrawLine(GetWorldPosition(_width, 0), GetWorldPosition(_width, _height), Color.white, 100f);
         }
+#endif
+        #endregion
     }
 
+    /// <summary>
+    /// Gets the world position of the tile with the given XZ coordinates
+    /// </summary>
+    /// <param name="_gridX">Coordinate X</param>
+    /// <param name="_gridZ">Coordinate Z</param>
+    /// <returns>World pos of grid tile</returns>
     public Vector3 GetWorldPosition(int _gridX, int _gridZ)
     {
         return new Vector3(_gridX, 0, _gridZ) * m_cellSize + m_originPos;
     }
 
+    /// <summary>
+    /// Gets the world position of the center of the tile with the given XZ coordinates
+    /// </summary>
+    /// <param name="_gridX">Coordinate X</param>
+    /// <param name="_gridZ">Coordinate Z</param>
+    /// <returns>World pos of grid tile center</returns>
     private Vector3 GetWorldCenterPosition(int _gridX, int _gridZ)
     {
         return GetWorldPosition(_gridX, _gridZ) + new Vector3(m_cellSize, 0, m_cellSize) * .5f;
     }
 
+    /// <summary>
+    /// Gets XZ of the given world position in the grid
+    /// </summary>
+    /// <param name="_worldPos">World position</param>
+    /// <param name="_x">X on grid</param>
+    /// <param name="_z">Z on grid</param>
     public void GetXZ(Vector3 _worldPos, out int _x, out int _z)
     {
         _x = Mathf.FloorToInt((_worldPos - m_originPos).x / m_cellSize);
         _z = Mathf.FloorToInt((_worldPos - m_originPos).z / m_cellSize);
     }
 
+    /// <summary>
+    /// Returns the GridObject at a given grid position
+    /// </summary>
+    /// <param name="_gridX">Position in X</param>
+    /// <param name="_gridZ">Position in Z</param>
+    /// <returns>GridObject at given position</returns>
     public TDGridObject GetGridObject(int _gridX, int _gridZ)
     {
         if (_gridX >= 0 && _gridZ >= 0 && _gridX < m_width && _gridZ < m_height)
@@ -64,6 +92,11 @@ public class TDGridXZ
         return default(TDGridObject);
     }
 
+    /// <summary>
+    /// Returns the GridObject at a given world position
+    /// </summary>
+    /// <param name="_worldPos">Position in world space</param>
+    /// <returns>GridObject at given position</returns>
     public TDGridObject GetGridObject(Vector3 _worldPos)
     {
         int gridX, gridZ;
@@ -71,6 +104,12 @@ public class TDGridXZ
         return GetGridObject(gridX, gridZ);
     }
 
+    /// <summary>
+    /// Assigns a GridObject to the given grid position
+    /// </summary>
+    /// <param name="_gridX">Grid position X</param>
+    /// <param name="_gridZ">Grid position Z</param>
+    /// <param name="_value">GridObject to assign to</param>
     public void SetGridObject(int _gridX, int _gridZ, TDGridObject _value)
     {
         if (_gridX >= 0 && _gridZ >= 0 && _gridX < m_width && _gridZ < m_height)
@@ -81,6 +120,11 @@ public class TDGridXZ
             Debug.LogError("Out of grid range: SetValue(" + _gridX + ", " + _gridZ + ", " + _value + ")");
     }
 
+    /// <summary>
+    /// Assigns a GridObject to the given world position
+    /// </summary>
+    /// <param name="_worldPos">Grid position in world space</param>
+    /// <param name="_value">GridObject to assign to</param>
     public void SetGridObject(Vector3 _worldPos, TDGridObject value)
     {
         int gridX, gridZ;

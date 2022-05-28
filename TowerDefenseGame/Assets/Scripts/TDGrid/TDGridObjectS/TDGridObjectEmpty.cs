@@ -11,6 +11,10 @@ public class TDGridObjectEmpty : TDGridObject
     {
     }
 
+    /// <summary>
+    /// Assing a tower to this grid position
+    /// </summary>
+    /// <param name="_tower">Tower to assign</param>
     public void SetTower(Tower _tower)
     {
         m_tower = _tower;
