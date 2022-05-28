@@ -22,6 +22,6 @@ public class TowerButton : MonoBehaviour
 
     public void OnClick()
     {
-        TDGridManager.Instance.BuildTower(m_soTower);
+        UIManager.Instance.BuildTower(m_soTower);
     }
 }

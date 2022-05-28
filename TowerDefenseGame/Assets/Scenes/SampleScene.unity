@@ -640,6 +640,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 662511f7ad2b98d4289cc206d5e5a32c, type: 2}
   - {fileID: 11400000, guid: 4fd3e7987d302b64b99a411c4319cfa6, type: 2}
   m_towerButtonPrefab: {fileID: 8077900819277280652, guid: 353e7e237bda09c4488195122398db1f, type: 3}
+  m_cancelBuildButton: {fileID: 1673803460}
 --- !u!1 &944059525
 GameObject:
   m_ObjectHideFlags: 0

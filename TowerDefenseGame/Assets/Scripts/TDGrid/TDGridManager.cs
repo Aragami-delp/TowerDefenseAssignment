@@ -114,11 +114,14 @@ public class TDGridManager : MonoBehaviour
 
     public void CancelBuildTower()
     {
-        Destroy(m_currentlyPlacingTower.gameObject);
-        m_currentlyPlacingSOTower = null;
-        m_currentlyPlacingTower = null;
-        CurrentlyPlacing = false;
-        m_lastBuildPos = null;
+        if (CurrentlyPlacing)
+        {
+            Destroy(m_currentlyPlacingTower.gameObject);
+            m_currentlyPlacingSOTower = null;
+            m_currentlyPlacingTower = null;
+            CurrentlyPlacing = false;
+            m_lastBuildPos = null;
+        }
     }
 
     private void BuildingTower()
@@ -156,6 +159,7 @@ public class TDGridManager : MonoBehaviour
                         }
                     }
                 }
+                UIManager.Instance?.DisableCancel();
                 CurrentlyPlacing = false;
                 m_lastBuildPos = null;
             }
