@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a20b0bbdb40cd4d8cb3ea7d2f94912, type: 3}
   m_Name: LargeTower
   m_EditorClassIdentifier: 
-  Name: Large Tower
-  FireRate: 1
-  Damage: 1
-  Range: 1
-  Cost: 10
+  Name: Fire Tower
+  FireRate: 2
+  Damage: 20
+  Range: 7
+  Cost: 30
   Footprint: {x: 2, y: 2}
-  TowerPrefab: {fileID: 6143367633101649683, guid: 442e8ef6c7c0e7744a3b3e3ddd18f46c, type: 3}
+  TowerPrefab: {fileID: 2782024393148318016, guid: 442e8ef6c7c0e7744a3b3e3ddd18f46c, type: 3}

@@ -7,7 +7,7 @@ public abstract class TDGridObject : MonoBehaviour
     /// <summary>
     /// Own underlying grid
     /// </summary>
-    private TDGridXZ m_ownGrid;
+    protected TDGridXZ m_ownGrid;
     /// <summary>
     /// Own grid position in X
     /// </summary>

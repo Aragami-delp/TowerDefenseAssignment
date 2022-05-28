@@ -18,10 +18,12 @@ public class TDGridManager : MonoBehaviour
     [SerializeField, Tooltip("Prefab for enemy spawn tile")] private TDGridObjectStart m_startWayTile;
     [SerializeField, Tooltip("Prefab for enemy target tile")] private TDGridObjectFinish m_endWayTile;
     [SerializeField, Tooltip("Shifting the way height to make it stand out more")] private float m_wayShift;
+#pragma warning disable CS0414 // Assigned but never used
     [SerializeField, ReadOnly, Tooltip("Symbol for Floor Tile")] private char m_tileIs = '0';
     [SerializeField, ReadOnly, Tooltip("Symbol for Way Tile")] private char m_wayIs = '1';
     [SerializeField, ReadOnly, Tooltip("Symbol for Start Tile")] private char m_startIs = '2';
     [SerializeField, ReadOnly, Tooltip("Symbol for End Tile")] private char m_endIs = '3';
+#pragma warning restore CS0414
     [SerializeField, TextArea(5, 50)] private string m_way;
 
     [SerializeField, Header("Build:"), Tooltip("Layers that may be used to determine grid tiles")] private LayerMask m_buildableLayers;
@@ -61,7 +63,6 @@ public class TDGridManager : MonoBehaviour
     /// Saves last position to avoid validating the same coordinates multiple times
     /// </summary>
     private Vector2? m_lastBuildPos;
-
     /// <summary>
     /// All tiles the enemies can use including start and finish
     /// </summary>
@@ -205,7 +206,7 @@ public class TDGridManager : MonoBehaviour
     public void BuildTower(SOTower _soTower)
     {
         m_currentlyPlacingSOTower = _soTower;
-        m_currentlyPlacingTower = Instantiate(_soTower.TowerPrefab, new Vector3(0, -20, 0), Quaternion.identity); // out of sight if not on valid building spot yet
+        m_currentlyPlacingTower = Instantiate(_soTower.TowerPrefab, new Vector3(0, -20, 0), Quaternion.identity).Init(_soTower); // out of sight if not on valid building spot yet
         m_currentlyPlacing = true;
     }
 
@@ -266,6 +267,8 @@ public class TDGridManager : MonoBehaviour
                         }
                     }
                 }
+                m_currentlyPlacingTower.ShowRange(false);
+                m_currentlyPlacingTower.TowerPlacedDown = true;
                 UIManager.Instance?.DisableCancel();
                 m_currentlyPlacing = false;
                 m_lastBuildPos = null;

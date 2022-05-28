@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a20b0bbdb40cd4d8cb3ea7d2f94912, type: 3}
   m_Name: BasicTower
   m_EditorClassIdentifier: 
-  Name: Small Tower
-  FireRate: 1
+  Name: Arc Tower
+  FireRate: 0.2
   Damage: 1
-  Range: 1
-  Cost: 10
+  Range: 4
+  Cost: 20
   Footprint: {x: 1, y: 1}
-  TowerPrefab: {fileID: 6143367633101649683, guid: 0efadd97286b90a40b48dc42fce4b24a, type: 3}
+  TowerPrefab: {fileID: 5856743160973892437, guid: 0efadd97286b90a40b48dc42fce4b24a, type: 3}
