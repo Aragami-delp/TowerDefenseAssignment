@@ -8,6 +8,13 @@ using Cinemachine;
 
 public class TDGridManager : MonoBehaviour
 {
+    #region CONST
+    /// <summary>
+    /// Distance between each tile center
+    /// </summary>
+    public const float TILE_SCALE = 2f;
+    #endregion
+
     #region Inspector Vars
 #if UNITY_EDITOR
     [SerializeField, Tooltip("Shows Gizmo outlines of the grid")] private bool m_showDebugGrid = false;
@@ -24,6 +31,9 @@ public class TDGridManager : MonoBehaviour
     [SerializeField, ReadOnly, Tooltip("Symbol for Start Tile")] private char m_startIs = '2';
     [SerializeField, ReadOnly, Tooltip("Symbol for End Tile")] private char m_endIs = '3';
 #pragma warning restore CS0414
+    /// <summary>
+    /// The way to take by the enemies
+    /// </summary>
     [SerializeField, TextArea(5, 50)] private string m_way;
 
     [SerializeField, Header("Build:"), Tooltip("Layers that may be used to determine grid tiles on mouse click")] private LayerMask m_buildableLayers;
@@ -42,11 +52,6 @@ public class TDGridManager : MonoBehaviour
     /// Max value for Z using the current Way
     /// </summary>
     private int maxMapZ;
-    /// <summary>
-    /// Distance between each tile center
-    /// </summary>
-    public const float TILE_SCALE = 2f;
-
     /// <summary>
     /// Currently in placing towers mode
     /// </summary>
@@ -73,10 +78,12 @@ public class TDGridManager : MonoBehaviour
     private TDGridObjectFinish m_enemyFinish;
     #endregion
 
+    #region Public Vars
     /// <summary>
     /// All tiles the enemies can use including start and finish
     /// </summary>
     public List<TDGridObjectWay> EnemyWalkPathTiles { get; private set; } = new List<TDGridObjectWay>();
+    #endregion
 
     #region Singleton
     public static TDGridManager Instance = null;

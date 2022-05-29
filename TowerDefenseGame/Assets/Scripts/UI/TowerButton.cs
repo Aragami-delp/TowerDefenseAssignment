@@ -15,6 +15,11 @@ public class TowerButton : MonoBehaviour
         m_buttonText = GetComponentInChildren<TMP_Text>();
     }
 
+    /// <summary>
+    /// Initializes this TowerButton
+    /// </summary>
+    /// <param name="_soTower">ScriptableObject with data to the tower</param>
+    /// <returns>Resturns itself</returns>
     public TowerButton Init(SOTower _soTower)
     {
         m_soTower = _soTower;
@@ -22,11 +27,17 @@ public class TowerButton : MonoBehaviour
         return this;
     }
 
+    /// <summary>
+    /// When pressed on the button
+    /// </summary>
     public void OnClick()
     {
         UIManager.Instance.BuildTower(m_soTower);
     }
 
+    /// <summary>
+    /// Enables/Disables itself depending if there is enough money to buy this kind of tower
+    /// </summary>
     public void UpdateEnoughMoney()
     {
         if (m_ownButton != null)

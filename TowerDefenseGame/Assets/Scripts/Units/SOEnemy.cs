@@ -12,7 +12,6 @@ public enum ENEMYTYPE
 [CreateAssetMenu(fileName = "Enemy", menuName = "TD/Enemy")]
 public class SOEnemy : ScriptableObject
 {
-    public string m_name; // Not used right now
     public int m_maxHealth;
     public float m_speed;
     public int m_damageToLife;
