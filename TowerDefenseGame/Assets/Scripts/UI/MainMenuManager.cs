@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
+        // If GameManager Instance already exists then we are comming back from a lost game
         if (GameManager.Instance != null)
         {
             m_gameOverPanel.gameObject.SetActive(true);

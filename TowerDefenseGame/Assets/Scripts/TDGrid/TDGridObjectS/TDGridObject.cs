@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// One tile in the grid
+/// </summary>
 public abstract class TDGridObject : MonoBehaviour
 {
     /// <summary>

@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An enemy the walks from start to finish
+/// </summary>
 public class EnemyGround : Enemy
 {
+    /// <summary>
+    /// Index of the tile to walk to
+    /// </summary>
     private int m_currentWayIndex = 1; // Start at 0 walk to 1
 
     public override void Init(int _health, float _speed, int _damageToLife, int _moneyReward, List<TDGridObjectWay> _way)

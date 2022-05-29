@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Helper;
 
+/// <summary>
+/// An enemy that flys from start to finish
+/// </summary>
 public class EnemyAir : Enemy
 {
     public override void Init(int _health, float _speed, int _damageToLife, int _moneyReward, List<TDGridObjectWay> _way)
