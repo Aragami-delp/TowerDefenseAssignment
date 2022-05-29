@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a20b0bbdb40cd4d8cb3ea7d2f94912, type: 3}
+  m_Name: BasicTower
+  m_EditorClassIdentifier: 
+  Name: Arc Tower
+  FireRate: 0.2
+  Damage: 1
+  Range: 3
+  Cost: 20
+  Footprint: {x: 1, y: 1}
+  TowerPrefab: {fileID: 5856743160973892437, guid: 0efadd97286b90a40b48dc42fce4b24a, type: 3}
