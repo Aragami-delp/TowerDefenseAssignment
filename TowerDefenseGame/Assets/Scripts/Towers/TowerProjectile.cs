@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerProjectile : Tower
 {
     [SerializeField] private Projectile m_projectilePrefab;
-    private List<Projectile> m_projectilePool = new();
+    private static List<Projectile> m_projectilePool = new();
     public override bool Shoot()
     {
         if (TowerPlacedDown)
@@ -13,7 +13,7 @@ public class TowerProjectile : Tower
             Enemy shootTarget = EnemyInRange();
             if (shootTarget != null)
             {
-                Projectile nextProjectile = GetProjectileFromPool();
+                Projectile nextProjectile = GetProjectileFromPool(m_projectilePrefab);
                 nextProjectile.transform.position = this.m_shootingOrigin.position;
                 nextProjectile.gameObject.SetActive(true);
                 nextProjectile.FlyAtTarget(shootTarget, m_towerData.Damage);
@@ -23,7 +23,7 @@ public class TowerProjectile : Tower
         return false;
     }
 
-    private Projectile GetProjectileFromPool()
+    private static Projectile GetProjectileFromPool(Projectile _prefabToSpawn)
     {
         for (int i = 0; i < m_projectilePool.Count; i++)
         {
@@ -32,7 +32,7 @@ public class TowerProjectile : Tower
                 return m_projectilePool[i];
             }
         }
-        Projectile nextProjectile = Instantiate(m_projectilePrefab);
+        Projectile nextProjectile = Instantiate(_prefabToSpawn);
         m_projectilePool.Add(nextProjectile);
         return nextProjectile;
     }

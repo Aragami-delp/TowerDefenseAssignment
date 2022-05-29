@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BasicGroundUnit
   m_EditorClassIdentifier: 
   m_name: Walker
-  m_maxHealth: 10
+  m_maxHealth: 25
   m_speed: 6
   m_damageToLife: 1
   m_moneyReward: 1

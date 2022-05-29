@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public abstract class Enemy : MonoBehaviour
 {
     protected int m_health = 10;

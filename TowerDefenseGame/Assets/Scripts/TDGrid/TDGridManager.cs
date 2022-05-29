@@ -206,9 +206,12 @@ public class TDGridManager : MonoBehaviour
     /// <param name="_soTower">SO of the tower to build</param>
     public void BuildTower(SOTower _soTower)
     {
-        m_currentlyPlacingSOTower = _soTower;
-        m_currentlyPlacingTower = Instantiate(_soTower.TowerPrefab, new Vector3(0, -20, 0), Quaternion.identity).Init(_soTower); // out of sight if not on valid building spot yet
-        m_currentlyPlacing = true;
+        if (GameManager.Instance.RemoveMoney(_soTower.Cost))
+        {
+            m_currentlyPlacingSOTower = _soTower;
+            m_currentlyPlacingTower = Instantiate(_soTower.TowerPrefab, new Vector3(0, -20, 0), Quaternion.identity).Init(_soTower); // out of sight if not on valid building spot yet
+            m_currentlyPlacing = true;
+        }
     }
 
     /// <summary>
@@ -219,6 +222,7 @@ public class TDGridManager : MonoBehaviour
         if (m_currentlyPlacing)
         {
             Destroy(m_currentlyPlacingTower.gameObject);
+            GameManager.Instance.AddMoney(m_currentlyPlacingSOTower.Cost);
             m_currentlyPlacingSOTower = null;
             m_currentlyPlacingTower = null;
             m_currentlyPlacing = false;

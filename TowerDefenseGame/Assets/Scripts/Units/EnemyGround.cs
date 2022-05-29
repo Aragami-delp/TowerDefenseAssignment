@@ -16,7 +16,7 @@ public class EnemyGround : Enemy
 
     protected override void Update()
     {
-        if (Vector3.Distance(m_way[m_way.Count - 1].WorldCenterPos, this.transform.position) < 0.1f) // TODO: Vectir3.Distance is not very efficient
+        if (Vector3.Distance(m_way[m_way.Count - 1].WorldCenterPos, this.transform.position) < 0.1f)
         {
             EnemyAtFinish();
             return;

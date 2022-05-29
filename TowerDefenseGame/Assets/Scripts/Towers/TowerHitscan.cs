@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TowerHitscan : Tower
 {
+    [SerializeField] private ParticleSystem m_shootParticle;
     public override bool Shoot()
     {
         if (TowerPlacedDown)
@@ -11,10 +12,19 @@ public class TowerHitscan : Tower
             Enemy shootTarget = EnemyInRange();
             if (shootTarget != null)
             {
-                Debug.Log("TowerHitscan shoot");
+                // TODO Particle
+                m_shootParticle.gameObject.SetActive(true);
+                m_shootParticle.transform.LookAt(shootTarget.ShootTarget);
+                shootTarget.GetDamage(m_towerData.Damage);
+                Invoke(nameof(DisableParticle), .2f);
                 return true;
             }
         }
         return false;
+    }
+
+    private void DisableParticle()
+    {
+        m_shootParticle.gameObject.SetActive(false);
     }
 }

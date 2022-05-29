@@ -10,9 +10,9 @@ Grid-System
 
 Türme
 √ Werden auf dem Grid platziert
-X Kosten Gold beim Platzieren
+√ Kosten Gold beim Platzieren
 √ Schießen auf Gegner innerhalb ihrer Reichweite
-- mindestens zwei Türmen mit unterschiedlichen Werten
+√ mindestens zwei Türmen mit unterschiedlichen Werten
 √ Die Reichweite der Türme muss bereits während des Platzierens sichtbar sein
 
 Gegner / Waves

@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     #region Inspector Vars
     [SerializeField, Tooltip("To organize buttons")] private VerticalLayoutGroup m_towerButtonParent;
     [SerializeField, Tooltip("Prefab of TowerButton")] private TowerButton m_towerButtonPrefab;
+    private List<TowerButton> m_towerButtons = new();
     [SerializeField, Tooltip("Button to cancel building")] private Button m_cancelBuildButton;
 
     [SerializeField, Tooltip("Button to start the next wave")] private Button m_startWaveButton;
@@ -38,7 +39,7 @@ public class UIManager : MonoBehaviour
         SOTower[] loadedSOTowersObject = Resources.LoadAll("Towers", typeof(SOTower)).Cast<SOTower>().ToArray();
         foreach (SOTower soTower in loadedSOTowersObject)
         {
-            Instantiate(m_towerButtonPrefab, m_towerButtonParent.transform).Init(soTower);
+            m_towerButtons.Add(Instantiate(m_towerButtonPrefab, m_towerButtonParent.transform).Init(soTower));
         }
 
         m_cancelBuildButton.interactable = false;
@@ -49,6 +50,10 @@ public class UIManager : MonoBehaviour
     public void UpdateMoneyHud(int _setValue)
     {
         m_moneyText.text = _setValue.ToString();
+        foreach (TowerButton button in m_towerButtons)
+        {
+            button.UpdateEnoughMoney();
+        }
     }
 
     public void UpdateHealthHud(int _setValue)

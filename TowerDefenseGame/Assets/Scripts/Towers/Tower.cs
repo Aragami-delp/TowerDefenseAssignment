@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public abstract class Tower : MonoBehaviour
 {
     protected SOTower m_towerData;
@@ -9,6 +10,8 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] protected MeshRenderer m_towerRangeSphere;
     [HideInInspector] public bool TowerPlacedDown = false;
     protected float m_timeSinceLastShot = 0f;
+
+    protected Vector3 GetWorldCenter => this.transform.position + (new Vector3(m_towerData.Footprint.x, 0, m_towerData.Footprint.y) / 2);
 
     /// <summary>
     /// Initialzes the tower
@@ -38,7 +41,7 @@ public abstract class Tower : MonoBehaviour
 
     protected Enemy EnemyInRange()
     {
-        return WaveManager.Instance.FurthestEnemyInRange(this, m_towerData.Range);
+        return WaveManager.Instance.FurthestEnemyInRange(GetWorldCenter, m_towerData.Range);
     }
 
     protected virtual void Update()

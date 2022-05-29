@@ -14,8 +14,8 @@ public class WaveManager : MonoBehaviour
     private Dictionary<ENEMYTYPE, int> m_totalWaveEnemies = new();
     private Dictionary<ENEMYTYPE, int> m_currentWaveEnemies = new();
 
-    private Dictionary<ENEMYTYPE, List<Enemy>> m_enemyPool = new();
-    private SOEnemy[] m_soEnemies;
+    private static Dictionary<ENEMYTYPE, List<Enemy>> m_enemyPool = new();
+    private static SOEnemy[] m_soEnemies;
 
     private bool m_waveActive = false;
     [SerializeField, Range(0.1f, 10f)] private float m_spawnFrequenzy = 1f;
@@ -87,7 +87,6 @@ public class WaveManager : MonoBehaviour
 
     private void CheckWaveStatus()
     {
-        // TODO: CheckWaveStatus() when enemy dies
         if (m_allEnemiesSpawned && m_waveActive && m_aliveEnemies.Count == 0)
         {
             EndWave();
@@ -112,15 +111,15 @@ public class WaveManager : MonoBehaviour
 
     #region Enemies
 
-    public Enemy FurthestEnemyInRange(Tower _tower, float _range)
+    public Enemy FurthestEnemyInRange(Vector3 _tower, float _range)
     {
         Enemy furthestEnemy = null;
         float furthestPercentage = 0f;
         for (int i = 0; i < m_aliveEnemies.Count; i++)
         {
-            float x = Vector3.Distance(m_aliveEnemies[i].transform.position, _tower.transform.position);
+            float x = Vector3.Distance(m_aliveEnemies[i].transform.position, _tower);
             // Should be faster than Physics.OverlapShpere (advantage: having no Physics on enemies)
-            if (Vector3.Distance(m_aliveEnemies[i].transform.position, _tower.transform.position) < _range * 2)
+            if (Vector3.Distance(m_aliveEnemies[i].transform.position, _tower) < _range * TDGridManager.TILE_SCALE)
             {
                 float nextEnemyProgress = m_aliveEnemies[i].GetProgress();
                 if (nextEnemyProgress > furthestPercentage)
@@ -144,7 +143,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private Enemy GetPooledEnemy(ENEMYTYPE _type)
+    private static Enemy GetPooledEnemy(ENEMYTYPE _type)
     {
         if (m_enemyPool.ContainsKey(_type))
         {
