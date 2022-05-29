@@ -15,5 +15,6 @@ MonoBehaviour:
   m_name: Walker
   m_maxHealth: 10
   m_speed: 10
+  m_damageToLife: 1
   m_type: 1
   m_enemyPrefab: {fileID: 1471300137060220174, guid: feb9bf3e3c8192643b07e5a3da3d5f37, type: 3}

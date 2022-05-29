@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyAir : Enemy
 {
-    public override void Init(int _health, float _speed, List<TDGridObjectWay> _way)
+    public override void Init(int _health, float _speed, int _damageToLife, List<TDGridObjectWay> _way)
     {
-        base.Init(_health, _speed, _way);
+        base.Init(_health, _speed, _damageToLife, _way);
         m_currentTarget = _way[_way.Count - 1];
         this.transform.GetChild(0).LookAt(m_currentTarget.WorldCenterPos);
     }

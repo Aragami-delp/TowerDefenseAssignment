@@ -6,16 +6,18 @@ public abstract class Enemy : MonoBehaviour
 {
     protected int m_health = 10;
     protected float m_speed = 1f;
+    protected int m_damageToLife = 1;
     protected List<TDGridObjectWay> m_way;
     protected bool m_alive = false;
     protected TDGridObjectWay m_currentTarget;
 
-    public virtual void Init(int _health, float _speed, List<TDGridObjectWay> _way)
+    public virtual void Init(int _health, float _speed, int _damageToLife, List<TDGridObjectWay> _way)
     {
         m_health = _health;
         m_speed = _speed;
+        m_damageToLife = _damageToLife;
         m_way = _way;
-        transform.position = _way[0].transform.position;
+        transform.position = _way[0].WorldCenterPos;
         m_alive = true;
     }
 
@@ -28,6 +30,6 @@ public abstract class Enemy : MonoBehaviour
 
     protected void EnemyAtFinish()
     {
-        // TODO: Lose one life
+        WaveManager.Instance.EmemyAtFinish(this, m_damageToLife);
     }
 }

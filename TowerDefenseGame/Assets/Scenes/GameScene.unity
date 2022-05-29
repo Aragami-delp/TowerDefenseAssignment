@@ -1551,7 +1551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d236368e8fb749b8238500fae2061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_addEachWaveEnemies: []
+  m_addEachWaveEnemies:
+  - m_type: 1
+    m_amount: 3
+  - m_type: 2
+    m_amount: 1
   m_spawnFrequenzy: 1
 --- !u!4 &996357388
 Transform:
@@ -1579,7 +1583,7 @@ GameObject:
   - component: {fileID: 1160921496}
   - component: {fileID: 1160921495}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1598,7 +1602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_startMoney: 150
-  m_maxHealth: 10
+  m_maxHealth: 5
 --- !u!4 &1160921496
 Transform:
   m_ObjectHideFlags: 0

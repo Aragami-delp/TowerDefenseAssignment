@@ -6,10 +6,11 @@ public class EnemyGround : Enemy
 {
     private int m_currentWayIndex = 1; // Start at 0 walk to 1
 
-    public override void Init(int _health, float _speed, List<TDGridObjectWay> _way)
+    public override void Init(int _health, float _speed, int _damageToLife, List<TDGridObjectWay> _way)
     {
-        base.Init(_health, _speed, _way);
-        m_currentTarget = _way[1];
+        base.Init(_health, _speed, _damageToLife, _way);
+        m_currentWayIndex = 1;
+        m_currentTarget = _way[m_currentWayIndex];
         this.transform.GetChild(0).LookAt(m_currentTarget.WorldCenterPos);
     }
 

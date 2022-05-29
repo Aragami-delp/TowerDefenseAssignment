@@ -24,8 +24,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] private float m_spawnFrequenzy = 1f;
     private float m_timeSinceLastSpawn = 0f;
     private bool m_allEnemiesSpawned = false;
+    private List<Enemy> m_aliveEnemies = new List<Enemy>();
 
     private int m_currentWaveNumber = 0; // Starts with 0, first wave triggered is wave 1
+    public int WavesSurvived => m_currentWaveNumber - 1;
 
     private void Awake()
     {
@@ -39,6 +41,86 @@ public class WaveManager : MonoBehaviour
         #endregion
 
         m_soEnemies = Resources.LoadAll("Enemies", typeof(SOEnemy)).Cast<SOEnemy>().ToArray();
+    }
+
+    public void SetStartFinish(TDGridObjectStart _start, TDGridObjectFinish _finish)
+    {
+        m_wayStart = _start;
+        m_wayFinish = _finish;
+    }
+
+    private void Start()
+    {
+        foreach (WaveModifier addThis in m_addEachWaveEnemies)
+        {
+            m_totalWaveEnemies.Add(addThis.m_type, addThis.m_amount);
+        }
+    }
+
+    private void Update()
+    {
+        if (m_waveActive && !m_allEnemiesSpawned)
+        {
+            m_timeSinceLastSpawn += Time.deltaTime;
+            if (m_timeSinceLastSpawn >= m_spawnFrequenzy)
+            {
+                m_timeSinceLastSpawn = 0f;
+                m_allEnemiesSpawned = !SpawnEnemy();
+            }
+        }
+    }
+
+    [ContextMenu("Start Wave")]
+    public void StartWave()
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying)
+#endif
+        {
+            m_currentWaveNumber++;
+            UIManager.Instance.UpdateWaveHud(m_currentWaveNumber);
+            m_currentWaveEnemies = new Dictionary<ENEMYTYPE, int>(m_totalWaveEnemies); // By value
+            m_waveActive = true;
+            m_timeSinceLastSpawn = 0f;
+            m_allEnemiesSpawned = false;
+        }
+    }
+
+    private void EndWave()
+    {
+        m_waveActive = false;
+        m_timeSinceLastSpawn = 0f;
+        AddWaveEnemies();
+        UIManager.Instance.OnEndWave();
+    }
+
+    private void CheckWaveStatus()
+    {
+        // TODO: CheckWaveStatus() when enemy dies
+        if (m_allEnemiesSpawned && m_waveActive && m_aliveEnemies.Count == 0)
+        {
+            EndWave();
+        }
+    }
+
+    public void EmemyAtFinish(Enemy _atFinish, int _amoutToLose = 1)
+    {
+        GameManager.Instance.ReduceHealth(_amoutToLose);
+        _atFinish.gameObject.SetActive(false);
+        m_aliveEnemies.Remove(_atFinish);
+        CheckWaveStatus();
+    }
+
+    #region Enemies
+    /// <summary>
+    /// Should be done at the end of a wave/beginning of the build phase
+    /// </summary>
+    private void AddWaveEnemies()
+    {
+        foreach (WaveModifier addThis in m_addEachWaveEnemies)
+        {
+            m_totalWaveEnemies[addThis.m_type] += addThis.m_amount;
+        }
     }
 
     private Enemy GetPooledEnemy(ENEMYTYPE _type)
@@ -82,67 +164,6 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    public void SetStartFinish(TDGridObjectStart _start, TDGridObjectFinish _finish)
-    {
-        m_wayStart = _start;
-        m_wayFinish = _finish;
-    }
-
-    private void Start()
-    {
-        foreach (WaveModifier addThis in m_addEachWaveEnemies)
-        {
-            m_totalWaveEnemies.Add(addThis.m_type, addThis.m_amount);
-        }
-    }
-
-    private void Update()
-    {
-        if (m_waveActive && !m_allEnemiesSpawned)
-        {
-            m_timeSinceLastSpawn += Time.deltaTime;
-            if (m_timeSinceLastSpawn >= m_spawnFrequenzy)
-            {
-                m_timeSinceLastSpawn = 0f;
-                m_allEnemiesSpawned = !SpawnEnemy();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Should be done at the end of a wave/beginning of the build phase
-    /// </summary>
-    private void AddWaveEnemies()
-    {
-        foreach (WaveModifier addThis in m_addEachWaveEnemies)
-        {
-            m_totalWaveEnemies[addThis.m_type] += addThis.m_amount;
-        }
-    }
-
-    [ContextMenu("Start Wave")]
-    public void StartWave()
-    {
-#if UNITY_EDITOR
-        if (Application.isPlaying)
-#endif
-        {
-            m_currentWaveNumber++;
-            m_currentWaveEnemies = m_totalWaveEnemies;
-            m_waveActive = true;
-            m_timeSinceLastSpawn = 0f;
-            m_allEnemiesSpawned = false;
-        }
-    }
-
-    private void EndWave()
-    {
-        m_waveActive = false;
-        m_timeSinceLastSpawn = 0f;
-        UIManager.Instance.OnEndWave();
-        //m_allEnemiesSpawned = true;
-    }
-
     /// <summary>
     /// Spawns a random enemy
     /// </summary>
@@ -153,6 +174,7 @@ public class WaveManager : MonoBehaviour
         if (nextEnemyType == ENEMYTYPE.NONE)
             return false;
         Enemy nextEnemy = GetPooledEnemy(nextEnemyType);
+        m_aliveEnemies.Add(nextEnemy);
         SOEnemy nextSOEnemy = null;
         foreach (SOEnemy soEnemy in m_soEnemies)
         {
@@ -162,7 +184,8 @@ public class WaveManager : MonoBehaviour
                 break;
             }
         }
-        nextEnemy.Init(nextSOEnemy.m_maxHealth, nextSOEnemy.m_speed, TDGridManager.Instance.m_enemyWalkPathTiles);
+        nextEnemy.gameObject.SetActive(true);
+        nextEnemy.Init(nextSOEnemy.m_maxHealth, nextSOEnemy.m_speed, nextSOEnemy.m_damageToLife, TDGridManager.Instance.m_enemyWalkPathTiles);
         m_currentWaveEnemies[nextEnemyType]--;
         return true;
     }
@@ -175,6 +198,7 @@ public class WaveManager : MonoBehaviour
         KeyValuePair<ENEMYTYPE, int> randomType = dicWithValuesGreaterZero.ElementAt(UnityEngine.Random.Range(0, dicWithValuesGreaterZero.Count));
         return randomType.Key;
     }
+    #endregion
 }
 
 /// <summary>
