@@ -1556,7 +1556,7 @@ MonoBehaviour:
     m_amount: 3
   - m_type: 2
     m_amount: 1
-  m_spawnFrequenzy: 1
+  m_spawnFrequenzy: 0.2
 --- !u!4 &996357388
 Transform:
   m_ObjectHideFlags: 0

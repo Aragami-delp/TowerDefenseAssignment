@@ -16,6 +16,7 @@ public class SOEnemy : ScriptableObject
     public int m_maxHealth;
     public float m_speed;
     public int m_damageToLife;
+    public int m_moneyReward;
     public ENEMYTYPE m_type;
     public Enemy m_enemyPrefab;
 }

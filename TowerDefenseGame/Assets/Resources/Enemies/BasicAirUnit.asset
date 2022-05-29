@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Flyer
   m_maxHealth: 5
-  m_speed: 7
+  m_speed: 4
   m_damageToLife: 1
+  m_moneyReward: 2
   m_type: 2
   m_enemyPrefab: {fileID: 2467574294020708558, guid: e6bca631ac79027459e2858268b66ef1, type: 3}

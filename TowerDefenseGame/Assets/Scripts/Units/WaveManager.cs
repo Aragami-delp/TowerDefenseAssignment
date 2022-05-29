@@ -10,21 +10,18 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance = null;
     #endregion
 
-    private TDGridObjectStart m_wayStart;
-    private TDGridObjectFinish m_wayFinish;
+    [SerializeField] private List<WaveModifier> m_addEachWaveEnemies = new();
+    private Dictionary<ENEMYTYPE, int> m_totalWaveEnemies = new();
+    private Dictionary<ENEMYTYPE, int> m_currentWaveEnemies = new();
 
-    [SerializeField] private List<WaveModifier> m_addEachWaveEnemies = new List<WaveModifier>();
-    private Dictionary<ENEMYTYPE, int> m_totalWaveEnemies = new Dictionary<ENEMYTYPE, int>();
-    private Dictionary<ENEMYTYPE, int> m_currentWaveEnemies = new Dictionary<ENEMYTYPE, int>();
-
-    private Dictionary<ENEMYTYPE, List<Enemy>> m_enemyPool = new Dictionary<ENEMYTYPE, List<Enemy>>();
+    private Dictionary<ENEMYTYPE, List<Enemy>> m_enemyPool = new();
     private SOEnemy[] m_soEnemies;
 
     private bool m_waveActive = false;
     [SerializeField, Range(0.1f, 10f)] private float m_spawnFrequenzy = 1f;
     private float m_timeSinceLastSpawn = 0f;
     private bool m_allEnemiesSpawned = false;
-    private List<Enemy> m_aliveEnemies = new List<Enemy>();
+    private List<Enemy> m_aliveEnemies = new();
 
     private int m_currentWaveNumber = 0; // Starts with 0, first wave triggered is wave 1
     public int WavesSurvived => m_currentWaveNumber - 1;
@@ -41,12 +38,6 @@ public class WaveManager : MonoBehaviour
         #endregion
 
         m_soEnemies = Resources.LoadAll("Enemies", typeof(SOEnemy)).Cast<SOEnemy>().ToArray();
-    }
-
-    public void SetStartFinish(TDGridObjectStart _start, TDGridObjectFinish _finish)
-    {
-        m_wayStart = _start;
-        m_wayFinish = _finish;
     }
 
     private void Start()
@@ -111,7 +102,37 @@ public class WaveManager : MonoBehaviour
         CheckWaveStatus();
     }
 
+    public void EnemyDies(Enemy _dyingEnemy, int _moneyReward)
+    {
+        GameManager.Instance.AddMoney(_moneyReward);
+        m_aliveEnemies.Remove(_dyingEnemy);
+        _dyingEnemy.gameObject.SetActive(false);
+        CheckWaveStatus();
+    }
+
     #region Enemies
+
+    public Enemy FurthestEnemyInRange(Tower _tower, float _range)
+    {
+        Enemy furthestEnemy = null;
+        float furthestPercentage = 0f;
+        for (int i = 0; i < m_aliveEnemies.Count; i++)
+        {
+            float x = Vector3.Distance(m_aliveEnemies[i].transform.position, _tower.transform.position);
+            // Should be faster than Physics.OverlapShpere (advantage: having no Physics on enemies)
+            if (Vector3.Distance(m_aliveEnemies[i].transform.position, _tower.transform.position) < _range * 2)
+            {
+                float nextEnemyProgress = m_aliveEnemies[i].GetProgress();
+                if (nextEnemyProgress > furthestPercentage)
+                {
+                    furthestEnemy = m_aliveEnemies[i];
+                    furthestPercentage = nextEnemyProgress;
+                }
+            }
+        }
+        return furthestEnemy;
+    }
+
     /// <summary>
     /// Should be done at the end of a wave/beginning of the build phase
     /// </summary>
@@ -145,7 +166,7 @@ public class WaveManager : MonoBehaviour
                     break;
                 }
             }
-            Enemy newEnemy = null;
+            Enemy newEnemy;
             if (nextEnemyPrefab != null)
             {
                 newEnemy = Instantiate(nextEnemyPrefab);
@@ -185,7 +206,7 @@ public class WaveManager : MonoBehaviour
             }
         }
         nextEnemy.gameObject.SetActive(true);
-        nextEnemy.Init(nextSOEnemy.m_maxHealth, nextSOEnemy.m_speed, nextSOEnemy.m_damageToLife, TDGridManager.Instance.m_enemyWalkPathTiles);
+        nextEnemy.Init(nextSOEnemy.m_maxHealth, nextSOEnemy.m_speed, nextSOEnemy.m_damageToLife, nextSOEnemy.m_moneyReward, TDGridManager.Instance.EnemyWalkPathTiles);
         m_currentWaveEnemies[nextEnemyType]--;
         return true;
     }

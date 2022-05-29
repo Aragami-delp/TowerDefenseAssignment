@@ -62,12 +62,6 @@ public class GameManager : MonoBehaviour
         return m_currentMoney >= _amoutToHave;
     }
 
-    private void SetHealth(int _setHealth)
-    {
-        m_currentHealth = _setHealth;
-        UIManager.Instance.UpdateHealthHud(m_currentHealth);
-    }
-
     public void ReduceHealth(int _reduceAmount = 1)
     {
         m_currentHealth = Mathf.Max(0, m_currentHealth - _reduceAmount);

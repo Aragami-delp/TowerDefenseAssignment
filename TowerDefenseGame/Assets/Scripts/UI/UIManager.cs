@@ -43,11 +43,6 @@ public class UIManager : MonoBehaviour
 
         m_cancelBuildButton.interactable = false;
     }
-
-    private void Start()
-    {
-
-    }
     #endregion
 
     #region HUD

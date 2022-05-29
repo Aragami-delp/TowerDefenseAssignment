@@ -11,14 +11,14 @@ Grid-System
 Türme
 √ Werden auf dem Grid platziert
 X Kosten Gold beim Platzieren
-X Schießen auf Gegner innerhalb ihrer Reichweite
+√ Schießen auf Gegner innerhalb ihrer Reichweite
 - mindestens zwei Türmen mit unterschiedlichen Werten
 √ Die Reichweite der Türme muss bereits während des Platzierens sichtbar sein
 
 Gegner / Waves
 √ Erscheinen in Wellen und laufen auf dem Weg zu einem Ziel
 √ Wenn ein Gegner das Ziel erreicht, wird dem Spieler 1 Leben abgezogen
-X Wenn ein Gegner durch einen Turm stirbt, bekommt der Spieler Gold
+√ Wenn ein Gegner durch einen Turm stirbt, bekommt der Spieler Gold
 √ Wellen können durch einen Button ausgelöst werden (damit der Spieler genug
   Zeit hat zwischendurch neue Türme zu bauen) (Build & Wave-Phase)
 √ Die nächste Welle kann erst ausgelöst werden wenn die davor komplett

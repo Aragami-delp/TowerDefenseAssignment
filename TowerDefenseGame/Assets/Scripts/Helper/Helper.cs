@@ -7,6 +7,23 @@ using UnityEditor;
 
 namespace Helper
 {
+    public static class MathHelper
+    {
+        /// <summary>
+        /// Gets the percentage of the distance between to points
+        /// </summary>
+        /// <param name="_a">Starting point</param>
+        /// <param name="_b">End point</param>
+        /// <param name="_value">Point inbetween</param>
+        /// <returns>Percentage of the point inbetween</returns>
+        public static float InverseLerp(Vector3 _a, Vector3 _b, Vector3 _value)
+        {
+            Vector3 AB = _b - _a;
+            Vector3 AV = _value - _a;
+            return Mathf.Clamp01(Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB));
+        }
+    }
+
     #region Optional
     [Serializable]
     public class Optional<T>

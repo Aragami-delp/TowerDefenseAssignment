@@ -177,7 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_shootingOrigin: {fileID: 103767454064350338}
   m_towerRangeSphere: {fileID: 7734514747847805607}
-  m_projecttilePrefab: {fileID: 198238224484258984, guid: 4b21d5ab091be5a46ad6e87699fab62c, type: 3}
+  TowerPlacedDown: 0
+  m_projectilePrefab: {fileID: 3216166515502120726, guid: 6c796302f2e5a40479a7d48ceb67f57c, type: 3}
 --- !u!1001 &51360936533900508
 PrefabInstance:
   m_ObjectHideFlags: 0

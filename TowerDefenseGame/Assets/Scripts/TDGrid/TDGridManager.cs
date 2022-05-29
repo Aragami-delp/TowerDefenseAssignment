@@ -76,7 +76,7 @@ public class TDGridManager : MonoBehaviour
     /// <summary>
     /// All tiles the enemies can use including start and finish
     /// </summary>
-    public List<TDGridObjectWay> m_enemyWalkPathTiles { get; private set; } = new List<TDGridObjectWay>();
+    public List<TDGridObjectWay> EnemyWalkPathTiles { get; private set; } = new List<TDGridObjectWay>();
 
     #region Singleton
     public static TDGridManager Instance = null;
@@ -179,24 +179,23 @@ public class TDGridManager : MonoBehaviour
     /// </summary>
     private void DetermineEnemyPath()
     {
-        WaveManager.Instance.SetStartFinish(m_enemyStart, m_enemyFinish);
         TDGridObjectWay currentTile = m_enemyStart;
-        m_enemyWalkPathTiles.Add(currentTile);
+        EnemyWalkPathTiles.Add(currentTile);
         while (currentTile != null)
         {
             TDGridObjectWay[] nextTiles = m_grid.GetAdjacentTiles<TDGridObjectWay>(currentTile.X, currentTile.Z);
             currentTile = null;
             foreach (TDGridObjectWay nextWay in nextTiles)
             {
-                if (!m_enemyWalkPathTiles.Contains(nextWay))
+                if (!EnemyWalkPathTiles.Contains(nextWay))
                 {
-                    m_enemyWalkPathTiles.Add(nextWay);
+                    EnemyWalkPathTiles.Add(nextWay);
                     currentTile = nextWay;
                     break;
                 }
             }
         }
-        m_enemyWalkPathTiles.Add(m_enemyFinish);
+        EnemyWalkPathTiles.Add(m_enemyFinish);
     }
     #endregion
 
