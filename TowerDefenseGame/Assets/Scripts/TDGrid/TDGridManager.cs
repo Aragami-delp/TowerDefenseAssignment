@@ -64,10 +64,6 @@ public class TDGridManager : MonoBehaviour
     /// </summary>
     private Vector2? m_lastBuildPos;
     /// <summary>
-    /// All tiles the enemies can use including start and finish
-    /// </summary>
-    private List<TDGridObjectWay> m_enemyWalkPathTiles = new List<TDGridObjectWay>();
-    /// <summary>
     /// Enemies spawn here
     /// </summary>
     private TDGridObjectStart m_enemyStart;
@@ -76,6 +72,11 @@ public class TDGridManager : MonoBehaviour
     /// </summary>
     private TDGridObjectFinish m_enemyFinish;
     #endregion
+
+    /// <summary>
+    /// All tiles the enemies can use including start and finish
+    /// </summary>
+    public List<TDGridObjectWay> m_enemyWalkPathTiles { get; private set; } = new List<TDGridObjectWay>();
 
     #region Singleton
     public static TDGridManager Instance = null;
@@ -178,6 +179,7 @@ public class TDGridManager : MonoBehaviour
     /// </summary>
     private void DetermineEnemyPath()
     {
+        WaveManager.Instance.SetStartFinish(m_enemyStart, m_enemyFinish);
         TDGridObjectWay currentTile = m_enemyStart;
         m_enemyWalkPathTiles.Add(currentTile);
         while (currentTile != null)

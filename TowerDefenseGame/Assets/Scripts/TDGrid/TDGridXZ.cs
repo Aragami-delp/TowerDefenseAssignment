@@ -59,7 +59,7 @@ public class TDGridXZ
     /// <param name="_gridX">Coordinate X</param>
     /// <param name="_gridZ">Coordinate Z</param>
     /// <returns>World pos of grid tile center</returns>
-    private Vector3 GetWorldCenterPosition(int _gridX, int _gridZ)
+    public Vector3 GetWorldCenterPosition(int _gridX, int _gridZ)
     {
         return GetWorldPosition(_gridX, _gridZ) + new Vector3(m_cellSize, 0, m_cellSize) * .5f;
     }

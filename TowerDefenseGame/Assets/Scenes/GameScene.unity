@@ -711,7 +711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 11.7, y: -0.000061035156}
+  m_AnchoredPosition: {x: 11.700012, y: -0.000061035156}
   m_SizeDelta: {x: -26, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &898220941
@@ -931,11 +931,10 @@ MonoBehaviour:
   m_towerButtonParent: {fileID: 970838825}
   m_towerButtonPrefab: {fileID: 8077900819277280652, guid: 353e7e237bda09c4488195122398db1f, type: 3}
   m_cancelBuildButton: {fileID: 1673803460}
+  m_startWaveButton: {fileID: 980970344}
   m_moneyText: {fileID: 898220941}
   m_healthText: {fileID: 1833976302}
   m_waveText: {fileID: 1954611337}
-  m_startMoney: 100
-  m_maxHealth: 100
 --- !u!1 &944059525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1264,7 @@ GameObject:
   - component: {fileID: 980970345}
   - component: {fileID: 980970344}
   m_Layer: 5
-  m_Name: CancelBuildButton
+  m_Name: StartWaveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1338,7 +1337,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 942616400}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CancelBuild
+        m_MethodName: StartWaveButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1523,6 +1522,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983430632}
   m_CullTransparentMesh: 1
+--- !u!1 &996357386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996357388}
+  - component: {fileID: 996357387}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &996357387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996357386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410d236368e8fb749b8238500fae2061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_addEachWaveEnemies: []
+  m_spawnFrequenzy: 1
+--- !u!4 &996357388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996357386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1160921494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1160921496}
+  - component: {fileID: 1160921495}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1160921495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160921494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c0d92fe6e1937429787157d5b665ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_startMoney: 150
+  m_maxHealth: 10
+--- !u!4 &1160921496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160921494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162831198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,8 +2045,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1440120924}
   m_HandleRect: {fileID: 1440120923}
   m_Direction: 2
-  m_Value: 1.0000136
-  m_Size: 0.93880385
+  m_Value: 1.0000118
+  m_Size: 0.9391166
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2160,7 +2251,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 942616400}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CancelBuild
+        m_MethodName: CancelBuildButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2243,7 +2334,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 11.7, y: -0.000061035156}
+  m_AnchoredPosition: {x: 11.700012, y: -0.000061035156}
   m_SizeDelta: {x: -26, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1833976302
@@ -2490,7 +2581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 11.7, y: -0.000061035156}
+  m_AnchoredPosition: {x: 11.700012, y: -0.000061035156}
   m_SizeDelta: {x: -26, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1954611337

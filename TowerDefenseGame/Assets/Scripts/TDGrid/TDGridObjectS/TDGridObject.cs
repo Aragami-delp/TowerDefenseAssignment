@@ -45,6 +45,10 @@ public abstract class TDGridObject : MonoBehaviour
         return this;
     }
 
+    public Vector3 WorldPos => m_ownGrid.GetWorldPosition(X, Z);
+
+    public Vector3 WorldCenterPos => m_ownGrid.GetWorldCenterPosition(X, Z);
+
     public override string ToString()
     {
         return "X: " + X + ", Z: " + Z + ", " + base.ToString();
